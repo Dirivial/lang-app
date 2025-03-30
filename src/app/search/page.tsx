@@ -4,7 +4,7 @@ import { Search } from "../_components/search";
 export default async function Home() {
   return (
     <HydrateClient>
-      <main className="container h-screen py-16">
+      <main className="h-screen py-16">
         <div className="flex flex-col items-center justify-center gap-4">
           <h1 className="text-2xl font-extrabold tracking-tight sm:text-[3rem]">
             Language <span className="text-primary">App</span>

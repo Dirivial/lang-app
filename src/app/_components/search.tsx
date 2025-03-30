@@ -31,7 +31,7 @@ export function Search() {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <div className="relative">
+        <div className="relative w-full">
           <Input
             value={searchInput}
             onChange={(e) => {
@@ -39,11 +39,16 @@ export function Search() {
               setOpen(e.target.value.length > 0);
             }}
             placeholder="Search..."
-            className="w-[300px]"
+            className=""
           />
         </div>
       </PopoverTrigger>
-      <PopoverContent className="w-[300px] p-0" align="start" side="bottom">
+      <PopoverContent
+        className="w-full p-0"
+        style={{ width: "var(--radix-popover-trigger-width)" }} // Exact match
+        align="start"
+        side="bottom"
+      >
         <Command>
           <CommandList>
             {words.length === 0 ? (
