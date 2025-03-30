@@ -3,12 +3,7 @@ import { type DefaultSession, type NextAuthConfig } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 
 import { db } from "~/server/db";
-import {
-  accounts,
-  sessions,
-  users,
-  verificationTokens,
-} from "~/server/db/schema";
+import { Account, Session, User, VerificationToken } from "~/server/db/schema";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -50,10 +45,10 @@ export const authConfig = {
      */
   ],
   adapter: DrizzleAdapter(db, {
-    usersTable: users,
-    accountsTable: accounts,
-    sessionsTable: sessions,
-    verificationTokensTable: verificationTokens,
+    usersTable: User,
+    accountsTable: Account,
+    sessionsTable: Session,
+    verificationTokensTable: VerificationToken,
   }),
   callbacks: {
     session: ({ session, user }) => ({
