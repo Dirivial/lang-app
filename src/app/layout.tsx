@@ -40,12 +40,12 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <NavigatorBar />
           <TRPCReactProvider>{children}</TRPCReactProvider>
-          <div className="absolute right-4 bottom-4 z-50">
+          <div className="absolute top-4 right-4 z-50">
             <ThemeToggle />
           </div>
           <Toaster />
-          <NavigatorBar />
         </ThemeProvider>
       </body>
     </html>
