@@ -20,7 +20,7 @@ export function NavigatorBar() {
           </span>
         </Link>
         <Separator orientation="vertical" />
-        <div className="flex flex-row rounded-lg bg-black/10">
+        <div className="flex flex-row">
           <Link
             className="text-foreground/80 hover:text-foreground pr-1 pl-2 transition-all"
             href={"/search"}
