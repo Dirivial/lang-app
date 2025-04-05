@@ -76,7 +76,7 @@ export function SearchComponent() {
   }, [searchParams]);
 
   return (
-    <div className="m-2 flex flex-col gap-1 sm:m-0 sm:flex-row">
+    <div className="m-2 flex flex-col gap-1 sm:m-1 sm:flex-row">
       <ModeSelect mode={mode} setMode={handleModeSelect} />
       <Search
         selectSearch={handleUpdateSearchURL}
