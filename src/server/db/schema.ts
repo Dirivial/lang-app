@@ -122,9 +122,10 @@ export const Word = createTable("word", (t) => ({
   id: t.serial("id").primaryKey(),
   text: t.varchar({ length: 255 }).notNull(), // Should be lower-case
   pinyin: t.varchar({ length: 255 }), // For Chinese (e.g., 'nǐ hǎo')
-  definition: t.text().notNull().default(""),
+  definitions: t.text("definitions").array(),
   type: coreWordTypeEnum().default("null"),
   createdAt: t.timestamp("created_at").defaultNow(),
+  examples: t.text("examples").array(),
   // Relations
   languageId: t
     .integer("language_id")
