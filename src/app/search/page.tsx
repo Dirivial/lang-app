@@ -1,5 +1,5 @@
 import { HydrateClient } from "~/trpc/server";
-import { Search } from "../_components/search";
+import { SearchComponent } from "../_components/search";
 
 export default async function Home() {
   return (
@@ -11,7 +11,7 @@ export default async function Home() {
           </h1>
 
           <div className="w-full max-w-2xl">
-            <Search />
+            <SearchComponent />
           </div>
         </div>
       </main>
