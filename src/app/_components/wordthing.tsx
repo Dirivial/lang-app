@@ -69,14 +69,12 @@ function handleData(data: string): WordThing[] {
       } else if (line === "[Article]") {
         noun.article = lines[++i]?.trim() ?? "";
         // Derive gender from article
-        noun.gender =
-          noun.article === "der"
-            ? "m"
-            : noun.article === "die"
-              ? "f"
-              : noun.article === "das"
-                ? "n"
-                : "unknown";
+        noun.gender = noun.article
+          .replace(/ oder /g, "/")
+          .replace(/,\s*/g, "/")
+          .replace(/der/g, "m")
+          .replace(/die/g, "f")
+          .replace(/das/g, "n");
       } else if (line?.startsWith("[Meaning")) {
         noun.definitions.push(
           lines[++i]

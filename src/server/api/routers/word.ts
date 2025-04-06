@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import { protectedProcedure } from "../trpc";
 import { coreWordTypeEnum, NounDetails, Word } from "~/server/db/schema";
+import { eq, lt, gte, ne } from "drizzle-orm";
 
 export const wordRouter = {
   createMany: protectedProcedure
@@ -20,17 +21,31 @@ export const wordRouter = {
         .array(),
     )
     .mutation(async ({ ctx, input }) => {
+      let i = 0;
       for (const v of input) {
-        const word = await ctx.db
-          .insert(Word)
-          .values(v)
-          .returning({ id: Word.id });
-        const wordId = word.at(0)?.id;
-        if (wordId !== undefined) {
-          const casething = await ctx.db
-            .insert(NounDetails)
-            .values({ gender: v.gender, wordId: wordId })
+        if (i % 10 === 0) {
+          console.log("batch: ", i / 10);
+        }
+        i++;
+
+        const existingWord = await ctx.db
+          .select()
+          .from(Word)
+          .where(eq(Word.text, "test"))
+          .limit(1);
+
+        if (existingWord.length === 0) {
+          const word = await ctx.db
+            .insert(Word)
+            .values(v)
             .returning({ id: Word.id });
+          const wordId = word.at(0)?.id;
+          if (wordId !== undefined) {
+            const casething = await ctx.db
+              .insert(NounDetails)
+              .values({ gender: v.gender, wordId: wordId })
+              .returning({ id: Word.id });
+          }
         }
       }
       return;
@@ -40,7 +55,7 @@ export const wordRouter = {
     .query(({ ctx, input }) => {
       // TODO: Add language filtering
       return ctx.db.query.Word.findMany({
-        where: (words, { ilike }) => ilike(words.text, input.text),
+        where: (words, { ilike }) => ilike(words.text, input.text + "%"),
         limit: 10,
         columns: {
           id: true,
