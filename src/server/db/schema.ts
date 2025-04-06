@@ -126,6 +126,7 @@ export const Word = createTable("word", (t) => ({
   type: coreWordTypeEnum().default("null"),
   createdAt: t.timestamp("created_at").defaultNow(),
   examples: t.text("examples").array(),
+  source: t.text("source"),
   // Relations
   languageId: t
     .integer("language_id")
